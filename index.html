@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Momentum & Impulse Lab</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d2e;--panel2:#18263a;--line:#2a3a51;--text:#edf4ff;--muted:#9fb0c8;--cyan:#59e1d0;--blue:#6ca8ff;--orange:#ffb86b;--pink:#ff7e9d;--green:#7ee0a3}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#172942 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#23344b;color:var(--text);font-weight:700}button:hover{filter:brightness(1.15)}button.primary{background:var(--cyan);color:#09201e;border-color:transparent}button.ghost{background:transparent}button:disabled{opacity:.45;cursor:not-allowed}
+.wrap{max-width:1180px;margin:auto;padding:20px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#10202a;font-size:25px;font-weight:900}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--cyan);font-weight:800}.brand h1{font-size:clamp(20px,4vw,30px);line-height:1.1;margin:2px 0}.sub{color:var(--muted);font-size:13px}.pill{padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:12px}
+.hero{border:1px solid #30445d;background:linear-gradient(120deg,#172b42,#152033 60%,#19343c);border-radius:22px;padding:22px;display:grid;grid-template-columns:1.3fr .7fr;gap:20px;margin-bottom:18px}.hero h2{font-size:clamp(22px,4vw,34px);line-height:1.12;margin:8px 0 12px}.hero p{color:#c3d2e5;max-width:680px}.hero-art{display:grid;place-items:center;font-size:clamp(50px,9vw,95px);background:radial-gradient(circle,#31526a 0,transparent 68%);min-height:150px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{font-size:12px;background:#22364b;padding:6px 9px;border-radius:8px;color:#d8e9fb}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:14px}.tab{white-space:nowrap;background:transparent;color:var(--muted)}.tab.active{background:var(--cyan);color:#09201e;border-color:var(--cyan)}
+.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,#142033,#111a29);border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0}.span8{grid-column:span 8}.span7{grid-column:span 7}.span6{grid-column:span 6}.span5{grid-column:span 5}.span4{grid-column:span 4}.span12{grid-column:span 12}.card h3{margin:0 0 4px;font-size:17px}.muted{color:var(--muted)}.small{font-size:12px;color:var(--muted)}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.field{margin:14px 0}.field label{display:flex;justify-content:space-between;gap:8px;margin-bottom:7px;font-weight:650;font-size:13px}.field output{color:var(--cyan);font-variant-numeric:tabular-nums}.field input[type=range]{width:100%;accent-color:var(--cyan)}select,input[type=number]{width:100%;background:#0d1726;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.track{height:210px;background:linear-gradient(#13253a,#0f1a29);border:1px solid #30425b;border-radius:14px;position:relative;overflow:hidden;margin-top:12px}.track:before{content:"";position:absolute;left:0;right:0;bottom:35px;height:4px;background:#52687e}.track:after{content:"";position:absolute;left:0;right:0;bottom:15px;height:2px;background:repeating-linear-gradient(90deg,#5a7188 0 24px,transparent 24px 42px);opacity:.6}.car{position:absolute;bottom:41px;width:82px;height:35px;border-radius:12px 17px 5px 5px;background:var(--blue);box-shadow:inset 0 -7px #4677b9;left:8%;transition:left 1.1s cubic-bezier(.2,.7,.2,1),transform .3s}.car:before{content:"";position:absolute;left:20px;top:-15px;width:38px;height:19px;border-radius:10px 12px 0 0;background:inherit;filter:brightness(1.15);clip-path:polygon(20% 0,80% 0,100% 100%,0 100%)}.car:after{content:"";position:absolute;bottom:-8px;left:12px;width:17px;height:17px;border-radius:50%;background:#09101b;border:4px solid #6b8199;box-shadow:43px 0 #09101b,43px 0 0 4px #6b8199}.car .label{position:absolute;left:0;right:0;top:2px;text-align:center;font-size:10px;font-weight:900;color:#061321;z-index:1}.car.b{background:var(--orange);box-shadow:inset 0 -7px #c88747}.car.b:after{box-shadow:43px 0 #09101b,43px 0 0 4px #6b8199}.impact{position:absolute;left:50%;top:22px;transform:translateX(-50%);font-size:11px;color:var(--orange);font-weight:900;letter-spacing:1px}.track .road-label{position:absolute;left:12px;top:10px;font-size:11px;color:#7f95ad}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.metric{background:#0d1726;border:1px solid #26384f;border-radius:12px;padding:12px}.metric .k{font-size:11px;color:var(--muted)}.metric .v{font-size:21px;font-weight:850;margin-top:3px;font-variant-numeric:tabular-nums}.metric .unit{font-size:11px;color:var(--muted);font-weight:500}.formula{border-left:3px solid var(--cyan);background:#0e1a29;padding:12px;border-radius:0 10px 10px 0;margin:12px 0;color:#d9e7f7}.notice{padding:12px;border:1px solid #3b5d65;background:#102b31;border-radius:12px;color:#bff8ee;font-size:13px;margin-top:12px}.warning{border-color:#705333;background:#2a2117;color:#ffe0b4}.question{padding:15px;border:1px solid var(--line);border-radius:14px;background:#0e1827;margin:12px 0}.question p{margin:0 0 12px;font-weight:650}.options{display:grid;gap:8px}.option{display:flex;gap:9px;align-items:flex-start;text-align:left;background:#172438;border:1px solid #2c405a;padding:10px;border-radius:10px;font-weight:500}.option.selected{border-color:var(--cyan);background:#17323a}.option.correct{border-color:var(--green)}.option.wrong{border-color:var(--pink)}.feedback{margin-top:10px;font-size:13px;color:#bfd0e4}.bar{height:9px;background:#25364b;border-radius:999px;overflow:hidden}.bar>div{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));width:0;transition:width .3s}.data-table{width:100%;border-collapse:collapse;font-size:13px}.data-table th,.data-table td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}.data-table th{color:var(--muted);font-weight:600}.badge{font-size:11px;border:1px solid #355066;border-radius:7px;padding:3px 7px;color:var(--cyan)}.footer{padding:24px 0;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:760px){.wrap{padding:13px}.hero{grid-template-columns:1fr;padding:17px}.hero-art{min-height:75px}.span8,.span7,.span6,.span5,.span4{grid-column:span 12}.track{height:190px}.metric .v{font-size:18px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">Σ</div><div><div class="eyebrow">VIRTUAL PHYSICS LAB</div><h1>Momentum <span style="color:var(--cyan)">&</span> Impulse</h1><div class="sub">Eksperimen. Prediksi. Buktikan.</div></div></div>
+ <div class="pill">KELAS XI · INTERAKTIF</div>
+</header>
+<section class="hero">
+ <div><div class="eyebrow">MISSION 01 / REAL-WORLD PHYSICS</div><h2>Fisika di balik tabrakan, pantulan, dan pengaman.</h2><p>Bisakah dua benda bertabrakan dengan momentum total yang tetap? Mengapa bagian depan mobil dirancang untuk berubah bentuk? Uji ide kamu lewat simulasi dan data.</p><div class="chips"><span class="chip">🚗 Collision Lab</span><span class="chip">🛡️ Desain Mobil</span><span class="chip">🎾 Bola & Raket</span><span class="chip">🧠 Tantangan HOTS</span></div></div>
+ <div class="hero-art" aria-label="Ilustrasi mobil dan tumbukan">🚙💥🚗</div>
+</section>
+<nav class="tabs" aria-label="Menu lab">
+ <button class="tab active" data-page="collision">01 · Collision Lab</button>
+ <button class="tab" data-page="car">02 · Desain Mobil</button>
+ <button class="tab" data-page="impulse">03 · Impulse Lab</button>
+ <button class="tab" data-page="everyday">04 · Dunia Nyata</button>
+ <button class="tab" data-page="quiz">05 · Challenge Zone</button>
+</nav>
+
+<section id="collision" class="page active">
+ <div class="grid">
+  <div class="card span4">
+   <div class="section-head"><div><h3>Atur eksperimen</h3><div class="small">Pilih kondisi sebelum tabrakan.</div></div><span class="badge">SIM 01</span></div>
+   <div class="field"><label for="m1">Massa benda A <output id="m1o">2 kg</output></label><input id="m1" type="range" min="1" max="8" step=".5" value="2"></div>
+   <div class="field"><label for="v1">Kecepatan awal A <output id="v1o">4 m/s</output></label><input id="v1" type="range" min="-8" max="8" step=".5" value="4"></div>
+   <div class="field"><label for="m2">Massa benda B <output id="m2o">3 kg</output></label><input id="m2" type="range" min="1" max="8" step=".5" value="3"></div>
+   <div class="field"><label for="v2">Kecepatan awal B <output id="v2o">0 m/s</output></label><input id="v2" type="range" min="-8" max="8" step=".5" value="0"></div>
+   <div class="field"><label for="e">Jenis tumbukan</label><select id="e"><option value="0">Tidak lenting sama sekali (e = 0)</option><option value=".5">Sebagian lenting (e = 0,5)</option><option value="1">Lenting sempurna (e = 1)</option></select></div>
+   <div class="field"><label for="pred">Prediksi momentum total sesudah tumbukan</label><select id="pred"><option value="">Pilih prediksi…</option><option value="same">Tetap sama (jika sistem terisolasi)</option><option value="higher">Lebih besar</option><option value="lower">Lebih kecil</option></select></div>
+   <div class="actions"><button class="primary" id="runCollision">▶ Jalankan simulasi</button><button class="ghost" id="resetCollision">Reset</button></div>
+   <div id="predFeedback" class="feedback" aria-live="polite"></div>
+  </div>
+  <div class="card span8">
+   <div class="section-head"><div><h3>Lintasan tumbukan</h3><div class="small">Arah kanan bernilai positif; arah kiri bernilai negatif.</div></div><span class="badge" id="collisionState">SIAP</span></div>
+   <div class="track" id="collisionTrack"><div class="road-label">SEBELUM → SESUDAH</div><div class="impact">ZONA TUMBUKAN</div><div class="car" id="carA"><span class="label">A</span></div><div class="car b" id="carB" style="left:75%"><span class="label">B</span></div></div>
+   <div class="metrics">
+    <div class="metric"><div class="k">Momentum total sebelum</div><div class="v" id="pBefore">8.00 <span class="unit">kg·m/s</span></div></div>
+    <div class="metric"><div class="k">Momentum total sesudah</div><div class="v" id="pAfter">— <span class="unit">kg·m/s</span></div></div>
+    <div class="metric"><div class="k">Kecepatan akhir A</div><div class="v" id="vf1">— <span class="unit">m/s</span></div></div>
+    <div class="metric"><div class="k">Kecepatan akhir B</div><div class="v" id="vf2">— <span class="unit">m/s</span></div></div>
+   </div>
+   <div class="formula"><b>Model perhitungan</b><br>Momentum: <i>p = mv</i><br>Kekekalan momentum: <i>m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂</i><br>Koefisien restitusi: <i>e = (v₂ − v₁)/(u₁ − u₂)</i> untuk benda A mendekati B dari kiri.</div>
+   <div id="collisionExplain" class="notice">Atur variabel, tulis prediksi, lalu jalankan simulasi untuk membuka hasil perhitungan.</div>
+  </div>
+  <div class="card span12"><h3>Amati dan simpulkan</h3><p class="muted">1. Ubah massa A tanpa mengubah kecepatan. Apa yang terjadi pada momentumnya? 2. Bandingkan ketiga jenis tumbukan. Apakah momentum total berubah? 3. Mengapa kecepatan akhir kedua benda berbeda untuk tiap jenis tumbukan?</p></div>
+ </div>
+</section>
+
+<section id="car" class="page">
+ <div class="grid">
+  <div class="card span5">
+   <div class="section-head"><div><h3>Misi: pilih desain pengaman</h3><div class="small">Mobil bermassa sama menabrak penghalang dan berhenti.</div></div><span class="badge">CASE STUDY</span></div>
+   <div class="field"><label for="carMass">Massa mobil <output id="carMassO">1200 kg</output></label><input id="carMass" type="range" min="800" max="1800" step="100" value="1200"></div>
+   <div class="field"><label for="carSpeed">Kecepatan sebelum tabrakan <output id="carSpeedO">15 m/s</output></label><input id="carSpeed" type="range" min="5" max="25" step="1" value="15"></div>
+   <div class="field"><label for="designA">Desain A — zona remuk pendek <output id="designAO">0,10 s</output></label><input id="designA" type="range" min=".05" max=".30" step=".01" value=".10"></div>
+   <div class="field"><label for="designB">Desain B — zona remuk lebih panjang <output id="designBO">0,30 s</output></label><input id="designB" type="range" min=".05" max=".60" step=".01" value=".30"></div>
+   <div class="field"><label for="carPred">Prediksi: desain mana memberi perubahan momentum lebih kecil?</label><select id="carPred"><option value="">Pilih prediksi…</option><option value="same">Sama, karena keduanya berhenti dari kecepatan yang sama</option><option value="a">Desain A</option><option value="b">Desain B</option></select></div>
+   <div class="actions"><button class="primary" id="runCar">▶ Uji kedua desain</button><button id="resetCar" class="ghost">Reset</button></div>
+   <div id="carPredFeedback" class="feedback"></div>
+  </div>
+  <div class="card span7">
+   <h3>Perbandingan hasil</h3><p class="small">Model sederhana: kecepatan akhir 0 m/s. Nilai perubahan momentum sama jika massa dan kecepatan awal sama.</p>
+   <div class="track" style="height:150px"><div class="road-label">TABRAKAN DENGAN PENGHALANG</div><div style="position:absolute;right:10%;top:15px;bottom:34px;width:12px;background:repeating-linear-gradient(0deg,#9baabd 0 10px,#51657a 10px 20px);border-radius:3px"></div><div class="car" id="designCarA" style="left:8%;bottom:40px"><span class="label">A</span></div><div class="car b" id="designCarB" style="left:8%;bottom:88px"><span class="label">B</span></div></div>
+   <div class="grid" style="margin-top:12px">
+    <div class="metric span6"><div class="k">Perubahan momentum kedua mobil</div><div class="v" id="carDeltaP">18.000 <span class="unit">kg·m/s</span></div></div>
+    <div class="metric span6"><div class="k">Rasio waktu B terhadap A</div><div class="v" id="timeRatio">3,0× <span class="unit">lebih lama</span></div></div>
+    <div class="metric span6"><div class="k">Perubahan momentum per waktu — A</div><div class="v" id="carRateA">180.000 <span class="unit">N</span></div></div>
+    <div class="metric span6"><div class="k">Perubahan momentum per waktu — B</div><div class="v" id="carRateB">60.000 <span class="unit">N</span></div></div>
+   </div>
+   <div id="carExplain" class="notice">Jalankan pengujian untuk melihat kesimpulan berdasarkan data.</div>
+   <div class="notice warning">Penting: nilai N di sini adalah besar perubahan momentum dibagi waktu tumbukan, sebagai ukuran perbandingan dalam model sederhana. Ini bukan simulasi struktur kendaraan atau penilaian keselamatan mobil nyata.</div>
+  </div>
+  <div class="card span12"><h3>Pertanyaan insinyur</h3><p>Jika kedua mobil memiliki massa dan kecepatan awal sama lalu berhenti, apakah zona remuk yang lebih panjang mengurangi besar perubahan momentum? Jelaskan apa yang berubah dan apa yang tetap sama. Mengapa rancangan pengaman juga harus mempertimbangkan struktur kendaraan dan penumpang?</p></div>
+ </div>
+</section>
+
+<section id="impulse" class="page">
+ <div class="grid">
+  <div class="card span5">
+   <div class="section-head"><div><h3>Impuls pada bola</h3><div class="small">Pilih satu peristiwa sehari-hari.</div></div><span class="badge">SIM 03</span></div>
+   <div class="field"><label for="ballMass">Massa bola <output id="ballMassO">0,15 kg</output></label><input id="ballMass" type="range" min=".05" max=".50" step=".01" value=".15"></div>
+   <div class="field"><label for="ballU">Kecepatan awal <output id="ballUO">10 m/s</output></label><input id="ballU" type="range" min="-20" max="20" step="1" value="10"></div>
+   <div class="field"><label for="ballV">Kecepatan akhir <output id="ballVO">-5 m/s</output></label><input id="ballV" type="range" min="-20" max="20" step="1" value="-5"></div>
+   <div class="field"><label for="ballTime">Waktu kontak <output id="ballTimeO">0,05 s</output></label><input id="ballTime" type="range" min=".01" max=".50" step=".01" value=".05"></div>
+   <div class="field"><label for="ballPred">Prediksi jika waktu kontak diperbesar 2×, sementara perubahan kecepatan sama</label><select id="ballPred"><option value="">Pilih prediksi…</option><option value="same">Impuls tetap, ukuran perubahan momentum tetap</option><option value="double">Impuls menjadi 2×</option><option value="half">Impuls menjadi setengah</option></select></div>
+   <div class="actions"><button class="primary" id="runImpulse">Hitung impuls</button><button class="ghost" id="resetImpulse">Reset</button></div>
+   <div id="ballPredFeedback" class="feedback"></div>
+  </div>
+  <div class="card span7">
+   <h3>Hasil analisis</h3>
+   <div class="track" style="height:150px"><div class="road-label">ARAH KECEPATAN</div><div id="ball" style="position:absolute;left:18%;top:62px;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff2b3,#ffb34f 40%,#c66b24);box-shadow:0 8px 20px #0008;transition:left .8s ease"></div><div id="ballArrow" style="position:absolute;left:29%;top:65px;font-size:30px;color:var(--cyan)">→</div><div style="position:absolute;right:7%;top:44px;font-size:42px">🎾</div></div>
+   <div class="metrics">
+    <div class="metric"><div class="k">Momentum awal</div><div class="v" id="pBallI">1,50 <span class="unit">kg·m/s</span></div></div>
+    <div class="metric"><div class="k">Momentum akhir</div><div class="v" id="pBallF">−0,75 <span class="unit">kg·m/s</span></div></div>
+    <div class="metric"><div class="k">Impuls / perubahan momentum</div><div class="v" id="jBall">−2,25 <span class="unit">N·s</span></div></div>
+    <div class="metric"><div class="k">Ukuran impuls per waktu kontak</div><div class="v" id="rateBall">45,0 <span class="unit">N</span></div></div>
+   </div>
+   <div class="formula"><b>Hubungan penting</b><br><i>I = Δp = m(v − u)</i><br>Untuk perubahan momentum yang sama, waktu kontak lebih lama membuat besar perubahan momentum per satuan waktu lebih kecil.</div>
+   <div id="ballExplain" class="notice">Atur kecepatan awal, kecepatan akhir, dan waktu kontak. Tanda negatif menunjukkan arah ke kiri.</div>
+  </div>
+  <div class="card span12"><h3>Jangan tertukar</h3><div class="grid"><div class="span6"><div class="formula"><b>Momentum</b><br>Besaran gerak yang bergantung pada massa dan kecepatan. Arahnya mengikuti arah kecepatan.</div></div><div class="span6"><div class="formula"><b>Impuls</b><br>Perubahan momentum akibat interaksi selama selang waktu. Satuannya N·s, setara dengan kg·m/s.</div></div></div></div>
+ </div>
+</section>
+
+<section id="everyday" class="page">
+ <div class="grid">
+  <div class="card span4"><div style="font-size:38px">🎾</div><h3>Kasus A · Bola dan raket</h3><p class="muted">Bola bergerak ke kanan, lalu dipukul hingga bergerak ke kiri.</p><button class="ghost" data-case="ball">Pakai contoh ini</button></div>
+  <div class="card span4"><div style="font-size:38px">👐</div><h3>Kasus B · Menangkap bola</h3><p class="muted">Pemain menarik tangan ke belakang saat menangkap bola yang datang.</p><button class="ghost" data-case="catch">Pakai contoh ini</button></div>
+  <div class="card span4"><div style="font-size:38px">🛒</div><h3>Kasus C · Troli bertumbukan</h3><p class="muted">Troli bergerak menabrak troli lain yang diam.</p><button class="ghost" data-case="trolley">Pakai contoh ini</button></div>
+  <div class="card span12"><h3>Prediksi sebelum melihat jawaban</h3><p id="caseStory" class="muted">Pilih salah satu kasus di atas. Perhatikan arah gerak, perubahan kecepatan, dan waktu interaksi.</p>
+   <div id="caseQuestion" class="question"><p id="caseQ">Apa yang perlu diperhatikan untuk menganalisis peristiwa ini?</p><div class="options" id="caseOptions"></div><div class="feedback" id="caseFeedback"></div></div>
+  </div>
+ </div>
+</section>
+
+<section id="quiz" class="page">
+ <div class="grid">
+  <div class="card span4"><div class="section-head"><div><h3>Challenge Zone</h3><div class="small">Konsep → aplikasi → HOTS</div></div><span class="badge">8 SOAL</span></div>
+   <div class="metric"><div class="k">Skor saat ini</div><div class="v"><span id="quizScore">0</span><span class="unit"> / 8</span></div></div>
+   <div style="margin-top:15px"><div class="small" style="margin-bottom:6px">Progres dijawab</div><div class="bar"><div id="quizProgress"></div></div></div>
+   <div class="actions"><button id="resetQuiz" class="ghost">Ulangi kuis</button></div>
+   <p class="small">Pilih jawaban untuk mendapatkan pembahasan. Skor bertambah satu kali untuk setiap soal yang benar.</p>
+  </div>
+  <div class="card span8"><h3>Soal analisis</h3><div id="quizQuestions"></div></div>
+  <div class="card span12"><h3>Catatan ilmuwan muda</h3><p class="muted">Kesimpulan yang baik menyebutkan data, konsep fisika yang digunakan, dan alasan. Jika prediksi tidak sesuai, revisi penjelasanmu berdasarkan bukti, bukan sekadar mengganti jawaban.</p></div>
+ </div>
+</section>
+<footer class="footer">MOMENTUM & IMPULSE LAB · Model pembelajaran, bukan alat keselamatan kendaraan.<br>Gunakan satuan SI dan tetapkan arah kanan sebagai arah positif.</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=(n,d=2)=>Number(n).toLocaleString('id-ID',{minimumFractionDigits:d,maximumFractionDigits:d});
+const val=id=>Number($(id).value);
+const setText=(id,text)=>$(id).textContent=text;
+function slider(id,out,unit,d=0){const el=$(id);const upd=()=>setText(out,fmt(Number(el.value),d)+' '+unit);el.addEventListener('input',upd);upd()}
+function tabSetup(){document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===b.dataset.page));window.scrollTo({top:0,behavior:'smooth'})}))}
+tabSetup();
+['m1','m2'].forEach(id=>slider(id,id+'o','kg',1));
+['v1','v2'].forEach(id=>slider(id,id+'o','m/s',1));
+let collisionDone=false;
+function collision(){
+ const m1=val('m1'),m2=val('m2'),u1=val('v1'),u2=val('v2'),e=val('e');
+ const p=m1*u1+m2*u2;
+ // 1D collision solution from momentum conservation + restitution.
+ const v1=(m1*u1+m2*u2-m2*e*(u1-u2))/(m1+m2);
+ const v2=(m1*u1+m2*u2+m1*e*(u1-u2))/(m1+m2);
+ setText('pBefore',fmt(p)+' kg·m/s');setText('pAfter',fmt(m1*v1+m2*v2)+' kg·m/s');
+ setText('vf1',fmt(v1)+' m/s');setText('vf2',fmt(v2)+' m/s');
+ $('carA').style.left=(u1>=u2?'24%':'57%');$('carB').style.left=(u1>=u2?'56%':'24%');
+ $('collisionState').textContent='SELESAI';
+ const pred=$('pred').value;
+ $('predFeedback').textContent=!pred?'Prediksi belum dipilih.':pred==='same'?'Tepat! Dalam sistem terisolasi, momentum total tetap.':'Belum tepat. Untuk sistem terisolasi, momentum total tetap.';
+ const approach=u1-u2;
+ let explanation=`Momentum total sebelum = ${fmt(m1*u1)} + ${fmt(m2*u2)} = ${fmt(p)} kg·m/s. Sesudah = ${fmt(m1*v1+m2*v2)} kg·m/s. Hasil sama dalam batas pembulatan karena momentum total kekal. `;
+ if(Math.abs(approach)<1e-9) explanation+='Kedua benda tidak saling mendekat relatif pada awalnya; rumus koefisien restitusi tidak menggambarkan tabrakan yang sedang berlangsung pada kondisi ini.';
+ else explanation+=`Koefisien restitusi e = ${e}. Semakin besar e, semakin besar kecepatan relatif pisah dibandingkan kecepatan relatif mendekat.`;
+ $('collisionExplain').textContent=explanation;collisionDone=true;
+}
+$('runCollision').onclick=collision;
+$('resetCollision').onclick=()=>{[['m1',2],['v1',4],['m2',3],['v2',0]].forEach(([id,v])=>$(id).value=v);$('e').value='0';$('pred').value='';['m1','m2'].forEach(id=>$(id).dispatchEvent(new Event('input')));['v1','v2'].forEach(id=>$(id).dispatchEvent(new Event('input')));$('pBefore').innerHTML='8.00 <span class="unit">kg·m/s</span>';['pAfter','vf1','vf2'].forEach(id=>$(id).innerHTML='—');$('carA').style.left='8%';$('carB').style.left='75%';$('collisionState').textContent='SIAP';$('predFeedback').textContent='';$('collisionExplain').textContent='Atur variabel, tulis prediksi, lalu jalankan simulasi untuk membuka hasil perhitungan.'};
+['carMass','carSpeed'].forEach(id=>slider(id,id+'O',id==='carMass'?'kg':'m/s',0));
+slider('designA','designAO','s',2);slider('designB','designBO','s',2);
+function carTest(){
+ const m=val('carMass'),u=val('carSpeed'),ta=val('designA'),tb=val('designB'),dp=m*(0-u);
+ setText('carDeltaP',fmt(Math.abs(dp),0)+' kg·m/s');setText('timeRatio',fmt(tb/ta,2)+'× lebih lama');
+ setText('carRateA',fmt(Math.abs(dp)/ta,0)+' N');setText('carRateB',fmt(Math.abs(dp)/tb,0)+' N');
+ $('designCarA').style.left='66%';$('designCarB').style.left='66%';
+ const pred=$('carPred').value;
+ $('carPredFeedback').textContent=!pred?'Pilih prediksi terlebih dahulu.':pred==='same'?'Benar. Massa dan perubahan kecepatan sama berarti perubahan momentumnya sama.':'Belum tepat. Keduanya berhenti dari kecepatan awal yang sama, jadi perubahan momentumnya sama.';
+ $('carExplain').textContent=`Kedua mobil mengalami perubahan momentum sebesar ${fmt(Math.abs(dp),0)} kg·m/s. Desain A memiliki waktu kontak ${fmt(ta,2)} s; desain B ${fmt(tb,2)} s. Dalam model ini, perubahan momentum per waktu untuk B ${fmt((Math.abs(dp)/tb)/(Math.abs(dp)/ta)*100,0)}% dari A. Waktu kontak lebih lama mengurangi nilai per waktu, tetapi tidak mengubah total perubahan momentum.`;
+}
+$('runCar').onclick=carTest;
+$('resetCar').onclick=()=>{[['carMass',1200],['carSpeed',15],['designA',.10],['designB',.30]].forEach(([id,v])=>$(id).value=v);['carMass','carSpeed','designA','designB'].forEach(id=>$(id).dispatchEvent(new Event('input')));$('carPred').value='';$('designCarA').style.left='8%';$('designCarB').style.left='8%';$('carPredFeedback').textContent='';$('carExplain').textContent='Jalankan pengujian untuk melihat kesimpulan berdasarkan data.';carTest();};
+['ballMass'].forEach(id=>slider(id,'ballMassO','kg',2));
+['ballU','ballV'].forEach(id=>slider(id,id+'O','m/s',0));
+slider('ballTime','ballTimeO','s',2);
+function impulse(){
+ const m=val('ballMass'),u=val('ballU'),v=val('ballV'),t=val('ballTime'),pi=m*u,pf=m*v,j=pf-pi;
+ setText('pBallI',fmt(pi)+' kg·m/s');setText('pBallF',fmt(pf)+' kg·m/s');setText('jBall',fmt(j)+' N·s');setText('rateBall',fmt(Math.abs(j)/t)+' N');
+ $('ball').style.left=v<0?'10%':v>0?'72%':'43%';$('ballArrow').textContent=v<0?'←':v>0?'→':'•';$('ballArrow').style.left=v<0?'3%':'77%';
+ const pred=$('ballPred').value;
+ $('ballPredFeedback').textContent=!pred?'Pilih prediksi terlebih dahulu.':pred==='same'?'Benar. I = Δp; jika kecepatan awal dan akhir sama, impuls tidak berubah saat waktu kontak saja yang diubah.':'Belum tepat. Impuls sama dengan perubahan momentum, sehingga tetap sama jika kecepatan awal dan akhir tidak berubah.';
+ $('ballExplain').textContent=`Δp = m(v − u) = ${fmt(m)} × (${fmt(v,0)} − ${fmt(u,0)}) = ${fmt(j)} N·s. Tanda ${j<0?'negatif menunjukkan arah impuls ke kiri':j>0?'positif menunjukkan arah impuls ke kanan':'nol menunjukkan tidak ada perubahan momentum'}. Ukuran perubahan momentum per waktu kontak pada model ini = ${fmt(Math.abs(j)/t)} N.`;
+}
+$('runImpulse').onclick=impulse;
+$('resetImpulse').onclick=()=>{[['ballMass',.15],['ballU',10],['ballV',-5],['ballTime',.05]].forEach(([id,v])=>$(id).value=v);['ballMass','ballU','ballV','ballTime'].forEach(id=>$(id).dispatchEvent(new Event('input')));$('ballPred').value='';$('ballPredFeedback').textContent='';impulse();};
+const cases={
+ ball:{story:'Sebuah bola bergerak ke kanan sebelum dipukul raket, kemudian bergerak ke kiri. Anggap kanan sebagai arah positif.',q:'Apa tanda perubahan momentum bola setelah dipukul?',opts:['Positif, karena bola menerima gaya dari raket.','Negatif, karena momentum akhir ke kiri dan momentum awal ke kanan.','Nol, karena massa bola tetap.'],correct:1,ex:'Perubahan momentum Δp = p akhir − p awal. Jika momentum awal positif dan momentum akhir negatif, Δp bernilai negatif. Massa tetap tidak berarti momentum tetap.'},
+ catch:{story:'Pemain menangkap bola yang datang dan menarik tangannya ke belakang agar bola berhenti.',q:'Jika perubahan momentum bola sama, apa pengaruh waktu berhenti yang lebih lama?',opts:['Impuls menjadi lebih besar.','Perubahan momentum menjadi nol.','Perubahan momentum per waktu menjadi lebih kecil.'],correct:2,ex:'Impuls tetap sama karena Δp sama. Memperbesar waktu interaksi membuat perubahan momentum per satuan waktu lebih kecil dalam model ini.'},
+ trolley:{story:'Troli A bergerak ke kanan dan menabrak troli B yang diam. Setelah tabrakan, keduanya bergerak bersama.',q:'Untuk sistem dua troli yang terisolasi, pernyataan mana yang benar?',opts:['Momentum total sebelum sama dengan sesudah.','Momentum troli A harus tetap sama.','Energi kinetik selalu kekal pada semua tumbukan.'],correct:0,ex:'Momentum total sistem terisolasi kekal, tetapi momentum masing-masing troli dapat berubah. Jika keduanya bergerak bersama, tumbukannya tidak lenting sama sekali dan energi kinetik tidak kekal.'}
+};
+function loadCase(k){const c=cases[k];$('caseStory').textContent=c.story;$('caseQ').textContent=c.q;$('caseFeedback').textContent='';$('caseOptions').innerHTML='';c.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='option';b.textContent=String.fromCharCode(65+i)+'. '+o;b.onclick=()=>{[...$('caseOptions').children].forEach(x=>{x.disabled=true});b.classList.add(i===c.correct?'correct':'wrong');$('caseFeedback').textContent=(i===c.correct?'Tepat! ':'Belum tepat. ')+c.ex;};$('caseOptions').appendChild(b)})}
+document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>loadCase(b.dataset.case));
+const questions=[
+ {level:'DASAR',q:'Sebuah bola bermassa 0,5 kg bergerak dengan kecepatan 4 m/s ke kanan. Momentumnya adalah…',o:['0,125 kg·m/s','2 kg·m/s ke kanan','2 kg·m/s ke kiri','4,5 kg·m/s'],a:1,x:'p = mv = 0,5 × 4 = 2 kg·m/s. Momentum searah dengan kecepatan, yaitu ke kanan.'},
+ {level:'DASAR',q:'Satuan impuls yang setara dengan kg·m/s adalah…',o:['Watt','Joule per sekon','Newton sekon (N·s)','Kilogram per meter'],a:2,x:'I = FΔt, sehingga satuannya N·s. Karena 1 N = 1 kg·m/s², maka N·s = kg·m/s.'},
+ {level:'APLIKASI',q:'Benda 2 kg berubah kecepatan dari 3 m/s menjadi 7 m/s ke kanan. Besar perubahan momentumnya adalah…',o:['4 kg·m/s','8 kg·m/s','14 kg·m/s','20 kg·m/s'],a:1,x:'Δp = m(v − u) = 2(7 − 3) = 8 kg·m/s.'},
+ {level:'APLIKASI',q:'Bola bermassa 0,2 kg bergerak ke kanan 10 m/s lalu memantul ke kiri 5 m/s. Perubahan momentumnya adalah…',o:['+1 kg·m/s','−1 kg·m/s','+3 kg·m/s','−3 kg·m/s'],a:3,x:'Tetapkan kanan positif. Δp = 0,2(−5 − 10) = −3 kg·m/s. Tanda negatif menunjukkan perubahan momentum ke kiri.'},
+ {level:'ANALISIS',q:'Dua troli berada dalam sistem terisolasi. Momentum total awal 12 kg·m/s ke kanan. Setelah tumbukan, troli A memiliki momentum 5 kg·m/s ke kanan. Momentum troli B adalah…',o:['7 kg·m/s ke kanan','7 kg·m/s ke kiri','17 kg·m/s ke kanan','5 kg·m/s ke kanan'],a:0,x:'Momentum total akhir harus 12 kg·m/s ke kanan. Jadi momentum B = 12 − 5 = 7 kg·m/s ke kanan.'},
+ {level:'ANALISIS',q:'Mobil X dan Y bermassa sama dan sama-sama berhenti setelah menabrak penghalang. Mobil X berhenti dalam 0,1 s; Y dalam 0,4 s. Jika kecepatan awalnya sama, kesimpulan terbaik adalah…',o:['Y mengalami perubahan momentum lebih kecil.','X dan Y mengalami perubahan momentum sama; ukuran perubahan momentum per waktu Y lebih kecil.','Momentum Y tetap kekal pada mobil saja.','Waktu kontak tidak berkaitan dengan impuls.'],a:1,x:'Karena massa dan perubahan kecepatan sama, Δp keduanya sama. Waktu lebih lama membuat Δp/Δt lebih kecil. Mobil bukan sistem terisolasi saat menabrak penghalang.'},
+ {level:'HOTS',q:'Siswa menyatakan, “Jika waktu tumbukan diperbesar dua kali, impuls pasti menjadi dua kali.” Evaluasi yang tepat adalah…',o:['Benar untuk semua tumbukan.','Benar jika massa benda tetap.','Tidak tepat: impuls ditentukan perubahan momentum; waktu saja tidak menentukan impuls.','Salah karena impuls tidak berhubungan dengan momentum.'],a:2,x:'Impuls sama dengan perubahan momentum. Jika kondisi awal dan akhir tetap, impuls tetap sama walaupun waktu kontak berubah. Waktu berpengaruh pada perubahan momentum per waktu.'},
+ {level:'HOTS',q:'Dua mobil identik melaju dengan kecepatan sama lalu berhenti. Desain B memiliki zona remuk lebih panjang sehingga waktu berhenti lebih lama. Klaim mana yang didukung model sederhana?',o:['Desain B pasti tidak mengalami kerusakan.','Desain B mengalami perubahan momentum lebih kecil.','Perubahan momentum sama, tetapi perubahan momentum per waktu lebih kecil pada B.','Momentum sistem mobil dan Bumi tidak kekal.'],a:2,x:'Perubahan momentum mobil sama jika massa, kecepatan awal, dan kecepatan akhir sama. Waktu kontak lebih lama mengurangi Δp/Δt dalam model. Keselamatan nyata memerlukan pengujian struktur dan faktor lain.'}
+];
+let answered={},score=0;
+function renderQuiz(){const root=$('quizQuestions');root.innerHTML='';questions.forEach((q,qi)=>{const box=document.createElement('div');box.className='question';const p=document.createElement('p');p.textContent=(qi+1)+'. ['+q.level+'] '+q.q;box.appendChild(p);const opts=document.createElement('div');opts.className='options';q.o.forEach((o,oi)=>{const b=document.createElement('button');b.className='option';b.textContent=String.fromCharCode(65+oi)+'. '+o;if(answered[qi]!==undefined){b.disabled=true;if(oi===q.a)b.classList.add('correct');if(oi===answered[qi]&&oi!==q.a)b.classList.add('wrong')}b.onclick=()=>{if(answered[qi]!==undefined)return;answered[qi]=oi;if(oi===q.a)score++;renderQuiz()};opts.appendChild(b)});box.appendChild(opts);if(answered[qi]!==undefined){const f=document.createElement('div');f.className='feedback';f.textContent=(answered[qi]===q.a?'✓ Benar. ':'✕ Belum tepat. ')+q.x;box.appendChild(f)}root.appendChild(box)});setText('quizScore',score);$('quizProgress').style.width=(Object.keys(answered).length/questions.length*100)+'%'}
+$('resetQuiz').onclick=()=>{answered={};score=0;renderQuiz()};renderQuiz();
+// Set initial calculated values in every lab, but leave prediction feedback until user runs.
+function initialCar(){const m=val('carMass'),u=val('carSpeed'),dp=m*u,ta=val('designA'),tb=val('designB');setText('carDeltaP',fmt(dp,0)+' kg·m/s');setText('timeRatio',fmt(tb/ta,2)+'× lebih lama');setText('carRateA',fmt(dp/ta,0)+' N');setText('carRateB',fmt(dp/tb,0)+' N')}
+initialCar();
+['carMass','carSpeed','designA','designB'].forEach(id=>$(id).addEventListener('input',initialCar));
+</script>
+</body>
+</html>
